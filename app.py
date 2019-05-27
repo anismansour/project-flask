@@ -6,6 +6,7 @@ from data import Listings  # saved db from file
 import os
 import app
 
+Listings = Listings()
 app = Flask(__name__)
 # basedir is to locate the db file
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -62,11 +63,18 @@ def add_listing():
     return listing_schema.jsonify(new_listing)
 
 
-@app.route('/test', methods=['GET'])
-def get_listings():
+# @app.route('/test', methods=['GET'])
+# def get_listings():
+#     all_listings = Listing.query.all()
+#     result = listings_schema.dump(all_listings)
+#     return jsonify(result.data)
+
+
+@app.route('/listings')
+def listings():
     all_listings = Listing.query.all()
     result = listings_schema.dump(all_listings)
-    return jsonify(result.data)
+    return render_template("listings.html", listings=result.data)
 
 
 # Listings = Listings()
@@ -81,11 +89,6 @@ def index():
 @app.route('/about')
 def about():
     return render_template("about.html")
-
-
-@app.route('/listings')
-def listings():
-    return render_template("listings.html", listings=Listings)
 
 
 @app.route('/listing/<string:id>/')
