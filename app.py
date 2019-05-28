@@ -100,7 +100,31 @@ def listing(id):
     return render_template("listing.html", listing=listing)
 
 
+# #################################
+# update on html
+
+@app.route('/list/<string:id>', methods=['GET', 'POST'])
+def up_listing(id):
+    print(request.method, "<---this is the method")
+    if request.method == 'GET':
+        listing = Listing.query.get(id)
+        return render_template("edit.html", listing=listing)
+    else:
+        listing = Listing.query.get(id)
+
+        title = request.form['title']
+        description = request.form['description']
+        picture = request.form['image']
+
+        listing.title = title
+        listing.description = description
+        listing.picture = picture
+        print(listing, "<===== updated listing")
+        db.session.commit()
+        return redirect("/listings")
+
 # update a listing postman
+
 
 @app.route('/listing/<string:id>', methods=['PUT'])
 def update_listing(id):

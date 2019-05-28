@@ -1,0 +1,25 @@
+{%extends "layout.html"%} {%block body%}
+
+<h1>edit Listing</h1>
+<form method="POST" action="">
+  <div class="form-group">
+    <p>title</p>
+    <h1>title:{{ listing.title }}</h1>
+    <input type="textbox" name="title" value="{{ listing.title }}" />
+  </div>
+  <div class="form-group">
+    <p>description</p>
+    <input type="text" name="description" value="{{ listing.description }}" />
+  </div>
+  <div class="form-group">
+    <p>
+      image url
+    </p>
+    <input type="text" name="image" value="{{ listing.picture }}" />
+  </div>
+  <div>
+    <input type="submit" value="Submit" />
+  </div>
+</form>
+
+{% endblock %}
