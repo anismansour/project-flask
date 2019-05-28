@@ -13,7 +13,6 @@ import app
 # >>>  db.create_all()    will create the db and file name db.sqlite that will have our db
 
 
-# Listings = Listings()
 app = Flask(__name__)
 # basedir is to locate the db file
 basedir = os.path.abspath(os.path.dirname(__file__))
