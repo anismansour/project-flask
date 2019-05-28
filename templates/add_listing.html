@@ -1,0 +1,24 @@
+{%extends "layout.html"%} {%block body%}
+
+<h1>Add Listing</h1>
+<form method="POST">
+  <div>
+    <p>title</p>
+    <input type="textbox" name="listing.title" />
+  </div>
+  <div>
+    <p>description</p>
+    <input type="text" name="listing.description" />
+  </div>
+  <div>
+    <p>
+      image url
+    </p>
+    <input type="text" name="listing.image" />
+  </div>
+  <div>
+    <input type="submit" value="Submit" />
+  </div>
+</form>
+
+{% endblock %}
