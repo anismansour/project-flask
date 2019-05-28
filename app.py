@@ -70,11 +70,17 @@ def add_listing():
 #     return jsonify(result.data)
 
 
-@app.route('/listings')
+@app.route('/listings', methods=['GET'])
 def listings():
     all_listings = Listing.query.all()
     result = listings_schema.dump(all_listings)
     return render_template("listings.html", listings=result.data)
+
+
+@app.route('/listing/<string:id>/', methods=['GET'])
+def listing(id):
+    listing = Listing.query.get(id)
+    return render_template("listing.html", listing=listing)
 
 
 # Listings = Listings()
@@ -89,11 +95,6 @@ def index():
 @app.route('/about')
 def about():
     return render_template("about.html")
-
-
-@app.route('/listing/<string:id>/')
-def listing(id):
-    return render_template("listing.html", id=id)
 
 
 if __name__ == '__main__':
