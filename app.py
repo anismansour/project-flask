@@ -6,7 +6,14 @@ from data import Listings  # saved db from file
 import os
 import app
 
-Listings = Listings()
+
+# to generate the with sqlalchemy
+# go to the python shell ==>   python on terminal
+# >>> from app  import db   ==> will import the SQLALCHEMY
+# >>>  db.create_all()    will create the db and file name db.sqlite that will have our db
+
+
+# Listings = Listings()
 app = Flask(__name__)
 # basedir is to locate the db file
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -64,18 +71,21 @@ def add_listing():
 
 # CREATE ADD USING HTML PAGE not working
 
-# @app.route('/add', methods=['POST'])
-# def add():
-#     title = request.json['title']
-#     description = request.json['description']
-#     picture = request.json['picture']
+@app.route('/add', methods=['GET', 'POST'])
+def add():
+    if request.method == 'GET':
+        return render_template("add_listing.html")
+    else:
+        print(request.form)
+        title = request.form['title']
+        description = request.form['description']
+        picture = request.form['image']
 
-#     new_listing = Listing(title, description, picture)
-#     db.session.add(new_listing)
-#     db.session.commit()
-
-#     return render_template("add_listing.html", listing=new_listing)
-
+        new_listing = Listing(title, description, picture)
+        db.session.add(new_listing)
+        db.session.commit()
+        # return listing_schema.jsonify(new_listing)
+        return redirect("/listings")
 
 # get all listings
 @app.route('/listings', methods=['GET'])
