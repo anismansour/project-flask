@@ -1,19 +1,18 @@
 from flask import Flask, render_template, flash, redirect, url_for, session, logging, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
-from data import Listings  # saved db from file
 
 import os
 import app
 
-
+# source /Users/anismansour/lab/P4/.env/bin/activate
+# source .env/bin/activate
 # to generate the with sqlalchemy
 # go to the python shell ==>   python on terminal
 # >>> from app  import db   ==> will import the SQLALCHEMY
 # >>>  db.create_all()    will create the db and file name db.sqlite that will have our db
 
 
-# Listings = Listings()
 app = Flask(__name__)
 # basedir is to locate the db file
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -69,7 +68,7 @@ def add_listing():
     return listing_schema.jsonify(new_listing)
 
 
-# CREATE ADD USING HTML PAGE not working
+# CREATE ADD USING HTML PAGE  working
 
 @app.route('/add', methods=['GET', 'POST'])
 def add():
@@ -120,13 +119,14 @@ def update_listing(id):
     return listing_schema.jsonify(listing)
 
 # delete listing POSTMAN
-@app.route('/listing/<string:id>', methods=['DELETE'])
+@app.route('/listing/<string:id>', methods=['POST'])
 def delete_listing(id):
     listing = Listing.query.get(id)
     db.session.delete(listing)
     db.session.commit()
 
-    return listing_schema.jsonify(listing)
+    # return listing_schema.jsonify(listing)
+    return redirect("/listings")
 
 
 @app.route('/')
