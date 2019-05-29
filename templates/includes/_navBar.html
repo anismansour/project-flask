@@ -11,10 +11,31 @@
           >
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/about">About</a>
-        </li>
+            <a class="nav-link" href="/listings">Listings</a>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav" >
+
+          {% if session.logged_in %}
+          <li class="nav-item">
+              <a class="nav-link" href="/logout">Logout</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/profile">Profile</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="/add">Add Listing</a>
+                </li>
+            {%else%}
         <li class="nav-item">
-          <a class="nav-link" href="/listings">Listings</a>
+            <a class="nav-link" href="/register">Register</a>
+          </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/login">Login</a>
+        </li>
+    
+        {%endif%}
+        <li> {{ session.username }}
         </li>
       </ul>
     </div>

@@ -1,6 +1,8 @@
 from flask import Flask, render_template, flash, redirect, url_for, session, logging, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
+from passlib.hash import sha256_crypt
+
 
 import os
 import app
@@ -9,8 +11,8 @@ import app
 # source .env/bin/activate
 # to generate the with sqlalchemy
 # go to the python shell ==>   python on terminal
-# >>> from app  import db   ==> will import the SQLALCHEMY
-# >>>  db.create_all()    will create the db and file name db.sqlite that will have our db
+# >>> from app  import db ==> will import the SQLALCHEMY
+# >>>  db.create_all() will create the db and file name db.sqlite that will have our db
 
 
 app = Flask(__name__)
@@ -39,7 +41,21 @@ class Listing(db.Model):
         self.description = description
         self. picture = picture
 
-    # LISTING schema
+# LISTING schema
+
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), unique=True, nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    password = db.Column(db.String(100))
+
+    def __init__(self, username, email, password):
+        self.username = username
+        self.email = email
+        self.password = password
+    # def __repr__(self):
+    #     return '<User %r>' % self.username
 
 
 class ListingSchema(ma.Schema):
@@ -47,14 +63,81 @@ class ListingSchema(ma.Schema):
         fields = ('id', 'title', 'description', 'picture')
 
 
+class UserSchema(ma.Schema):
+    class Meta:
+        fields = ('id', 'username', 'email', 'password')
+
+
 # init schema
 listing_schema = ListingSchema(strict=True)
 listings_schema = ListingSchema(many=True, strict=True)
+user_schema = UserSchema(strict=True)
+users_schema = UserSchema(many=True, strict=True)
+
+
+# test route to see users in data base to be deleted
+@app.route('/users', methods=['GET'])
+def allusers():
+    all_users = User.query.all()
+    result = users_schema.dump(all_users)
+    return users_schema.jsonify(result.data)
+
+
+# login route
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        user = User.query.filter_by(username=username).first()
+        print(user.__dict__)
+
+        if not user or not sha256_crypt.verify(password, user.password):
+            error = "User not found "
+            return render_template('login.html', error=error)
+        else:
+            session['logged_in'] = True
+            session['username'] = username
+            return redirect('/profile')
+    return render_template('login.html')
+
+
+# user profile
+@app.route('/profile')
+def profile():
+    return render_template('profile.html')
+
+
+#  logout user
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('login'))
+
+
+# register route to add to database
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'GET':
+        return render_template('register.html')
+    else:
+        print(request.form)
+        username = request.form['username']
+        email = request.form['email']
+        # password = request.form['password']
+        password = sha256_crypt.encrypt(str(request.form['password']))
+
+        new_user = User(username, email, password)
+        db.session.add(new_user)
+        db.session.commit()
+        session['logged_in'] = True
+        session['username'] = username
+
+        return redirect('/profile')
 
 
 # create a listing  test route with POSTMAN WORKING
-
-
 @app.route('/test', methods=['POST'])
 def add_listing():
     title = request.json['title']
@@ -158,10 +241,11 @@ def index():
     return render_template('home.html')
 
 
-@app.route('/about')
-def about():
-    return render_template("about.html")
+# @app.route('/login')
+# def login():
+#     return render_template("login.html")
 
 
 if __name__ == '__main__':
+    app.secret_key = 'secret123'
     app.run(debug=True)
