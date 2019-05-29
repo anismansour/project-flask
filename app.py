@@ -11,7 +11,7 @@ import app
 # source .env/bin/activate
 # to generate the with sqlalchemy
 # go to the python shell ==>   python on terminal
-# >>> from app  import db ==> will import the SQLALCHEMY
+# >>> from app import db ==> will import the SQLALCHEMY
 # >>>  db.create_all() will create the db and file name db.sqlite that will have our db
 
 
@@ -35,11 +35,15 @@ class Listing(db.Model):
     title = db.Column(db.String(100))
     description = db.Column(db.String(5000))
     picture = db.Column(db.String(5000))
+    price = db.Column(db.String(100))
+    userId = db.Column(db.String(100))
 
-    def __init__(self, title, description, picture):
+    def __init__(self, title, description, picture, price, userId):
         self.title = title
         self.description = description
-        self. picture = picture
+        self.picture = picture
+        self.price = price
+        self.userId = userId
 
 # LISTING schema
 
@@ -48,7 +52,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(100))
+    password = db.Column(db.String(1000))
 
     def __init__(self, username, email, password):
         self.username = username
@@ -60,7 +64,7 @@ class User(db.Model):
 
 class ListingSchema(ma.Schema):
     class Meta:
-        fields = ('id', 'title', 'description', 'picture')
+        fields = ('id', 'title', 'description', 'picture', 'price', 'userId')
 
 
 class UserSchema(ma.Schema):
@@ -105,7 +109,12 @@ def login():
 # user profile
 @app.route('/profile')
 def profile():
-    return render_template('profile.html')
+    # all_listings = Listing.query.all()
+    user = User.query.filter_by(username=session['username']).first()
+    all_listings = Listing.query.filter_by(userId=user.username)
+    result = listings_schema.dump(all_listings)
+    print(result)
+    return render_template('profile.html', listings=result.data)
 
 
 #  logout user
@@ -125,7 +134,7 @@ def register():
         print(request.form)
         username = request.form['username']
         email = request.form['email']
-        # password = request.form['password']
+
         password = sha256_crypt.encrypt(str(request.form['password']))
 
         new_user = User(username, email, password)
@@ -138,17 +147,17 @@ def register():
 
 
 # create a listing  test route with POSTMAN WORKING
-@app.route('/test', methods=['POST'])
-def add_listing():
-    title = request.json['title']
-    description = request.json['description']
-    picture = request.json['picture']
+# @app.route('/test', methods=['POST'])
+# def add_listing():
+#     title = request.json['title']
+#     description = request.json['description']
+#     picture = request.json['picture']
 
-    new_listing = Listing(title, description, picture)
-    db.session.add(new_listing)
-    db.session.commit()
+#     new_listing = Listing(title, description, picture)
+#     db.session.add(new_listing)
+#     db.session.commit()
 
-    return listing_schema.jsonify(new_listing)
+#     return listing_schema.jsonify(new_listing)
 
 
 # CREATE ADD USING HTML PAGE  working
@@ -162,8 +171,10 @@ def add():
         title = request.form['title']
         description = request.form['description']
         picture = request.form['image']
+        price = request.form['price']
+        userId = request.form['userId']
 
-        new_listing = Listing(title, description, picture)
+        new_listing = Listing(title, description, picture, price, userId)
         db.session.add(new_listing)
         db.session.commit()
         # return listing_schema.jsonify(new_listing)

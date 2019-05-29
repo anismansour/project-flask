@@ -3,6 +3,9 @@
 <h1>id: {{ listing.id }}</h1>
 <h1>title:{{ listing.title }}</h1>
 <h3>description:{{ listing.description }}</h3>
+<h3>price:{{ listing.price }}</h3>
+<h3>seller: {{ listing.userId }}</h3>
+
 <form action="{{url_for('delete_listing', id=listing.id)}}" method="post">
   <input type="hidden" name="_method" value="DELETE" />
   <input type="submit" value="Delete" class="btn btn-danger" />
