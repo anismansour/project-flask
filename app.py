@@ -221,7 +221,7 @@ def up_listing(id):
         listing.picture = picture
         print(listing, "<===== updated listing")
         db.session.commit()
-        return redirect("/listings")
+        return redirect("/profile")
 
 # update a listing postman
 

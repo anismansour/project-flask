@@ -1,7 +1,8 @@
 {%extends "layout.html"%} {%block body%}
-<h1>yoooooooooo</h1>
+
 <h1>id: {{ listing.id }}</h1>
 <h1>title:{{ listing.title }}</h1>
+<img src="{{ listing.picture }}" alt="car picture" />
 <h3>description:{{ listing.description }}</h3>
 <h3>price:{{ listing.price }}</h3>
 <h3>seller: {{ listing.userId }}</h3>
@@ -11,9 +12,10 @@
   <input type="submit" value="Delete" class="btn btn-danger" />
 </form>
 
-<form action="{{url_for('delete_listing', id=listing.id)}}" method="post">
-  <input type="submit" value="Edit" class="btn btn-danger" />
+<form action="/list/{{ listing.id }}">
+  <input type="submit" value="edit" class="btn btn-danger" />
 </form>
+
 <!-- {%endif%} -->
 
 {% endblock %}
