@@ -1,17 +1,26 @@
 {%extends "layout.html"%} {%block body%}
 
-<h1>id: {{ listing.id }}</h1>
+<div class="card-group">
+  <div class="cards">
+    <img class="card-img-top" src="{{ listing.picture }}" alt="car picture" />
+    <div class="card-body">
+      <h5 class="card-title">title:{{ listing.title }}</h5>
+      <p class="card-text">description:{{ listing.description }}</p>
+      <p>Price: {{ listing.price }}</p>
+      <p></p>
+      <p>Seller Name: {{ listing.userId }}</p>
+    </div>
+    <div class="card-footer">
+      <small class="text-muted">Listing id: {{ listing.id }}</small>
+    </div>
+  </div>
+</div>
+
+<!-- <h1>id: {{ listing.id }}</h1>
 <h1>title:{{ listing.title }}</h1>
 <img src="{{ listing.picture }}" alt="car picture" />
 <h3>description:{{ listing.description }}</h3>
 <h3>price:{{ listing.price }}</h3>
-<h3>seller: {{ listing.userId }}</h3>
-<!-- 
-{% if session.logged_in %}
-<form action="{{url_for('delete_listing', id=listing.id)}}" method="post">
-  <input type="hidden" name="_method" value="DELETE" />
-  <input type="submit" value="Delete" class="btn btn-danger" />
-</form>
-{%endif%} -->
+<h3>seller: {{ listing.userId }}</h3> -->
 
 {% endblock %}
