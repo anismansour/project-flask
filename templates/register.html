@@ -3,20 +3,47 @@
 {% block body %}
 <h1>Register Username</h1>
 
-    <form method='POST'>
+    <!-- <form method='POST'>
         <div>
             <input type="textbox" name="username" />Username
-
         <div>
             <input type="textbox" name="email" />Email
-
         <div>
             <input type="textbox" name="password" />Password
-
+            
         <div>
             <input type="textbox" name="verifyPassword" />Verify Password
         </div>
         <p><input type="submit" class="btn btn-primary" value="Submit"></p>
-    </form>
+    </form> -->
+
+  <div class="row" >
+        <form class="col s12" method='POST'>
+          <div class="row">
+            <div class="input-field col s6">
+              <input placeholder="Username" name="username" type="text" class="validate">
+              <label for="first_name">Username</label>
+            </div>
+            <div class="input-field col s6">
+              <input name="email" type="text" class="validate">
+              <label for="email">Email</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <input name="password" type="password" class="validate">
+              <label for="password">Password</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <input name='verifyPassword' type="password" class="validate">
+              <label for="verifyPassword">Verify Password</label>
+            </div>
+          </div>
+          <p><input type="submit" class="btn btn-primary" value="Submit"></p>
+        </form>
+       
+      </div>
 
 {% endblock %}
