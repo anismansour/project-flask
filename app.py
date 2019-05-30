@@ -193,6 +193,12 @@ def listing(id):
     listing = Listing.query.get(id)
     return render_template("listing.html", listing=listing)
 
+# get single listing from the user profile so he can delete and update his own listings
+@app.route('/listingUser/<string:id>/', methods=['GET'])
+def listingUser(id):
+    listing = Listing.query.get(id)
+    return render_template("userListing.html", listing=listing)
+
 
 # #################################
 # update on html
@@ -215,7 +221,7 @@ def up_listing(id):
         listing.picture = picture
         print(listing, "<===== updated listing")
         db.session.commit()
-        return redirect("/listings")
+        return redirect("/profile")
 
 # update a listing postman
 
@@ -244,7 +250,7 @@ def delete_listing(id):
     db.session.commit()
 
     # return listing_schema.jsonify(listing)
-    return redirect("/listings")
+    return redirect("/profile")
 
 
 @app.route('/')
