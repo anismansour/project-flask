@@ -1,0 +1,12 @@
+{%extends "layout.html"%} {%block body%}
+
+<h1>Profile of {{ session.username }}</h1>
+
+{% for listing in listings %}
+
+<ul class="list-group">
+  <li class="list-group-item">
+    <a href="listing/{{ listing.id }}"> {{ listing.title }}</a>
+  </li>
+</ul>
+{% endfor %} {% endblock %}
