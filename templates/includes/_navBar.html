@@ -1,42 +1,38 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-dark ">
-    <a class="navbar-brand" href="#">car dealer</a>
-   
+<nav >
   
-  
-    <div >
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active"></li>
-          <a class="nav-link" href="/"
-            >Home <span class="sr-only">(current)</span></a
-          >
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/listings">Listings</a>
+    <div class="nav-wrapper">
+        <a href="#">car dealer</a>
+      <ul id="nav-mobile" class="left hide-on-med-and-down">
+          
+        <li>
+          <a href="/">Home <span class="sr-only">(current)</span></a>
           </li>
-        </ul>
-        <ul class="nav navbar-nav" >
 
-          {% if session.logged_in %}
-          <li class="nav-item">
-              <a class="nav-link" href="/logout">Logout</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/profile">Profile</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="/add">Add Listing</a>
-                </li>
-            {%else%}
-        <li class="nav-item">
-            <a class="nav-link" href="/register">Register</a>
+          <li>
+            <a href="/listings">Listings</a>
           </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/login">Login</a>
+       
+          {% if session.logged_in %}
+            <li>
+              <a href="/logout">Logout</a>
+            </li>
+            <li>
+                <a href="/profile">Profile</a>
+              </li>
+              <li>
+                  <a href="/add">Add Listing</a>
+              </li>
+            {%else%}
+          <li>
+            <a href="/register">Register</a>
+          </li>
+
+        <li>
+          <a href="/login">Login</a>
         </li>
     
         {%endif%}
-        <li> {{ session.username }}
-        </li>
+        <li> {{ session.username }}</li>
       </ul>
     </div>
   </nav>
