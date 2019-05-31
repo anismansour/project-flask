@@ -5,7 +5,7 @@ from passlib.hash import sha256_crypt
 
 
 import os
-import app
+
 
 # source /Users/anismansour/lab/P4/.env/bin/activate
 # source .env/bin/activate
@@ -15,7 +15,7 @@ import app
 # >>>  db.create_all() will create the db and file name db.sqlite that will have our db
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='/static')
 # basedir is to locate the db file
 basedir = os.path.abspath(os.path.dirname(__file__))
 

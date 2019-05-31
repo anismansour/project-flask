@@ -1,0 +1,24 @@
+.fontie{
+  font-family: 'Faster One', cursive;
+}
+
+.parallax-container {
+    height: 500px;
+ 
+    
+  }
+
+
+ .parallax { 
+  /* The image used */
+  background-image: url("../pics/1.png");
+
+  /* Full height */
+  height: 100%; 
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

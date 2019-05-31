@@ -2,10 +2,27 @@
 
 <h1>listings</h1>
 {% for listing in listings %}
-
+<!-- 
 <ul class="list-group">
   <li class="list-group-item">
     <a href="listing/{{ listing.id }}"> {{ listing.title }}</a>
   </li>
-</ul>
+</ul> -->
+
+<div class="col s12 m7">
+    <h2 class="header">{{ listing.title }}</h2>
+    <div class="card horizontal">
+      <div class="card-image">
+        <img src="{{ listing.picture }}">
+      </div>
+      <div class="card-stacked">
+        <div class="card-content">
+          <p>I am a very simple card. I am good at containing small bits of information.</p>
+        </div>
+        <div class="card-action">
+<a href="listing/{{ listing.id }}"> {{ listing.title }}</a>
+</div>
+</div>
+</div>
+</div>
 {% endfor %} {% endblock %}
