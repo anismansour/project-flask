@@ -1,7 +1,9 @@
 .fontie{
-  font-family: 'Faster One', cursive;
+  font-family: 'Faster One', cursive, !important;
 }
-
+.fontie2{
+  font-family: 'Six Caps', sans-serif;
+}
 .parallax-container {
     height: 500px;
  
@@ -11,7 +13,7 @@
 
  .parallax { 
   /* The image used */
-  background-image: url("../pics/1.png");
+  background-image: url("../1.png");
 
   /* Full height */
   height: 100%; 
