@@ -4,9 +4,26 @@
 
 {% for listing in listings %}
 
-<ul class="list-group">
+<!-- <ul class="list-group">
   <li class="list-group-item">
     <a href="listingUser/{{ listing.id }}"> {{ listing.title }}</a>
   </li>
-</ul>
+</ul> -->
+
+<div class="col s12 m7">
+    <h2 class="header" style="font-family: 'Faster One', cursive">{{ listing.title }}</h2>
+    <div class="card horizontal">
+      <div class="card-image">
+        <img src="{{ listing.picture }}">
+      </div>
+      <div class="card-stacked">
+        <div class="card-content">
+          <p class='fontie2'>I am a very simple card. I am good at containing small bits of information.</p>
+        </div>
+        <div class="card-action">
+<a href="listingUser/{{ listing.id }}"> {{ listing.title }}</a>
+</div>
+</div>
+</div>
+</div>
 {% endfor %} {% endblock %}

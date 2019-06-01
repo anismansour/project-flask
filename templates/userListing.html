@@ -1,11 +1,31 @@
 {%extends "layout.html"%} {%block body%}
 
-<h1>id: {{ listing.id }}</h1>
+<!-- <h1>id: {{ listing.id }}</h1>
 <h1>title:{{ listing.title }}</h1>
 <img src="{{ listing.picture }}" alt="car picture" />
 <h3>description:{{ listing.description }}</h3>
 <h3>price:{{ listing.price }}</h3>
-<h3>seller: {{ listing.userId }}</h3>
+<h3>seller: {{ listing.userId }}</h3> -->
+
+<div class="col s12 m7">
+    <div class="card horizontal">
+    <!-- <h1>id: {{ listing.id }}</h1> -->
+    <h2 class="header" style="font-family: 'Faster One', cursive">{{ listing.title }}</h2>
+      <div class="card horizontal">
+        <div class="card-image">
+          <img src="{{ listing.picture }}" alt="car picture" />
+        </div>
+    <div class="card-stacked">
+        <div class="card-content">
+          <h3>description:{{ listing.description }}</h3>
+          <h3>price:{{ listing.price }}</h3>
+          <h3>seller: {{ listing.userId }}</h3>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+
 
 <!-- {% if session.logged_in %} -->
 <form action="{{url_for('delete_listing', id=listing.id)}}" method="post">

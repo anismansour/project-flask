@@ -2,14 +2,16 @@
   font-family: 'Faster One', cursive, !important;
 }
 .fontie2{
-  font-family: 'Six Caps', sans-serif;
+  font-family: 'Six Caps', sans-serif,!important;
+  size: 50px ,!important;
 }
 .parallax-container {
     height: 500px;
  
-    
   }
-
+ .navie{
+   background-color: dodgerblue !important;
+ }
 
  .parallax { 
   /* The image used */

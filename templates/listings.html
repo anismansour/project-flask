@@ -2,15 +2,9 @@
 
 <h1>listings</h1>
 {% for listing in listings %}
-<!-- 
-<ul class="list-group">
-  <li class="list-group-item">
-    <a href="listing/{{ listing.id }}"> {{ listing.title }}</a>
-  </li>
-</ul> -->
 
 <div class="col s12 m7">
-    <h2 class="header">{{ listing.title }}</h2>
+    <h2 class="header" style="font-family: 'Faster One', cursive">{{ listing.title }}</h2>
     <div class="card horizontal">
       <div class="card-image">
         <img src="{{ listing.picture }}">
